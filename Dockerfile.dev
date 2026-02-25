@@ -1,0 +1,3 @@
+FROM alpine:3.22
+COPY bin/gardener-extension-qca /gardener-extension-qca
+CMD ["/gardener-extension-qca"]

@@ -1,0 +1,4 @@
+images:
+- name: qualys-cloud-agent
+  repository: registry.fits.cloud/cloud-native/images/qualys/agent
+  tag: "0.0.1"

@@ -1,0 +1,46 @@
+image:
+  repository: ghcr.io/fi-ts/gardener-extension-qca
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+resources: {}
+
+controllers:
+  concurrentSyncs: 5
+  healthcheck:
+    concurrentSyncs: 5
+  heartbeat:
+    renewIntervalSeconds: 30
+  ignoreOperationAnnotation: false
+
+disableControllers: []
+
+# imageVectorOverwrite: |
+#   images:
+#   - name: pause-container
+#     sourceRepository: github.com/kubernetes/kubernetes/blob/master/build/pause/Dockerfile
+#     repository: gcr.io/google_containers/pause-amd64
+#     tag: "3.0"
+#     version: 1.11.x
+#   - name: pause-container
+#     sourceRepository: github.com/kubernetes/kubernetes/blob/master/build/pause/Dockerfile
+#     repository: gcr.io/google_containers/pause-amd64
+#     tag: "3.1"
+#     version: ">= 1.12"
+#   ...
+
+config:
+  clientConnection:
+    acceptContentTypes: application/json
+    contentType: application/json
+    qps: 100
+    burst: 130
+  tenantConfigs:
+    - tenantId: "ft"
+      ActivationId: 00000000-0000-0000-0000-000000000123
+      customerId: 00000000-0000-0000-0000-000000000456
+      serverUri: myserver
+      proxy: myproxy
+gardener:
+  version: ""

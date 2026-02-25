@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qca-bootstrap-settings
+data:
+  config.env: |
+    LogLevel=5
+    ActivationId={{ .Values.agent.activationId }}
+    CustomerId={{ .Values.agent.customerId }}
+    ServerUri={{ .Values.agent.serverUri }}
+  qualys-cloud-agent.conf:
+    https_proxy={{ .Values.agent.proxy }}

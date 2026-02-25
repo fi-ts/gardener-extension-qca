@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: qca-bootstrap
+spec:
+  selector:
+    matchLabels: {{- include "qca.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "qca.labels" . | nindent 8 }}
+    spec:
+      hostPID: true
+      restartPolicy: Always
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        name: qualys-cloud-agent
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: install-env
+          mountPath: /tmp/config
+        - name: host-mount
+          mountPath: /host
+      volumes:
+      - name: install-env
+        configMap:
+          name: qca-bootstrap-settings
+      - name: host-mount
+        hostPath:
+          path: /var/tmp/install
+
+

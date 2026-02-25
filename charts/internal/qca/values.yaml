@@ -1,0 +1,19 @@
+image:
+  repository: ""
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+agent:
+  activationId: ""
+  customerId: ""
+  serverUri: ""
+  proxy: ""
+
+# Makes pods runnable on all nodes including master node.
+tolerations:
+- operator: Exists
+  effect: NoSchedule
+- operator: Exists
+  effect: PreferNoSchedule
+- operator: Exists
+  effect: NoExecute

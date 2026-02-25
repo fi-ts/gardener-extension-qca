@@ -1,4 +1,4 @@
-# Gardener Qualys Cloud agent extension
+# Gardener qualys cloud agent qca extension
 
-This extension installs the qualys cloud agent package on all nodes of a cluster.
+This extension installs the qualys cloud agent (qca) package on all nodes of a cluster.
 

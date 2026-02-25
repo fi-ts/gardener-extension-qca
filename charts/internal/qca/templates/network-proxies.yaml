@@ -1,0 +1,51 @@
+# After changing this file, please run `make patch-upstream-helm` and regenerate the CRD
+apiVersion: metal-stack.io/v1
+kind: ClusterwideNetworkPolicy
+metadata:
+  name: qca-proxy-access
+  namespace: firewall
+  labels:
+    labels: {{- include "qca.labels" . | nindent 4 }}
+spec:
+  egress:
+  - toFQDNs:
+    - matchName: registry.fits.cloud
+    ports:
+    - protocol: TCP
+      port: 443
+{{- if .Values.proxyAddresses }}
+  {{- range .Values.proxyAddresses }}
+  {{- $parts := split ":" . }}
+  {{- if and $parts._0 $parts._1 }}
+  - to:
+    - cidr: {{ $parts._0 }}/32
+    ports:
+    - protocol: TCP
+      port: {{ $parts._1 | int }}
+  {{- end }}
+  {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-to-qca-proxy
+  namespace: {{ .Release.Namespace }}
+spec:
+  podSelector:
+    matchLabels: {{- include "qca.selectorLabels" . | nindent 6 }}
+  policyTypes:
+  - Egress
+  egress:
+  {{- range .Values.proxyAddresses }}
+  {{- $parts := split ":" . }}
+  {{- if and $parts._0 $parts._1 }}
+  - to:
+    - ipBlock:
+        cidr: {{ $parts._0 }}/32
+    ports:
+    - protocol: TCP
+      port: {{ $parts._1 | int }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+

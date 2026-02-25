@@ -3,6 +3,7 @@ package qualys
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"path/filepath"
 
 	"github.com/fi-ts/gardener-extension-qca/charts"
@@ -94,7 +95,16 @@ func (a *actuator) Reconcile(ctx context.Context, log logr.Logger, ex *extension
 	if err != nil {
 		return fmt.Errorf("failed to create shoot client: %w", err)
 	}
-	firewallProxyList := []string{a.config.Proxy}
+
+	u, err := url.Parse(a.config.Proxy)
+	if err != nil {
+		return fmt.Errorf("wrong proxy configuration: %w", err)
+	}
+
+	// for the firewall rules, we need IP:PORT
+	// ??? should we detect(fail)/support NAME:PORT ? the name must be resolveable, but in most cases it is
+	// an internal name which cannot be resolved by the k8s dns, so an IP must be set.
+	firewallProxyList := []string{u.Host}
 	err = shootClient.Get(ctx, client.ObjectKeyFromObject(crd), crd)
 	if err != nil {
 		if !apierrors.IsNotFound(err) {

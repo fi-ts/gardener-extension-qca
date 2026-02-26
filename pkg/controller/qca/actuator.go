@@ -124,8 +124,8 @@ func (a *actuator) Reconcile(ctx context.Context, log logr.Logger, ex *extension
 			"name":   charts.QCANamespace,
 		},
 		"agent": map[string]any{
-			"activationId": a.config.ActivationId,
-			"customerId":   tenantConfig.CustomerId,
+			"customerId":   a.config.CustomerId,
+			"activationId": tenantConfig.ActivationId,
 			"serverUri":    a.config.Server,
 			"proxy":        a.config.Proxy,
 		},

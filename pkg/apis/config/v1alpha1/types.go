@@ -15,15 +15,15 @@ type ControllerConfiguration struct {
 	// +optional
 	HealthCheckConfig *healthcheckconfigv1alpha1.HealthCheckConfig `json:"healthCheckConfig,omitempty"`
 
-	ActivationId  string        `json:"activationId"`
+	CustomerId    string        `json:"customerId"`
 	Server        string        `json:"server"`
 	Proxy         string        `json:"proxy"`
 	TenantConfigs TenantConfigs `json:"tenantConfigs,omitempty"`
 }
 
 type TenantConfig struct {
-	TenantId   string `json:"tenantId"`
-	CustomerId string `json:"customerId"`
+	TenantId     string `json:"tenantId"`
+	ActivationId string `json:"activationId"`
 }
 
 type TenantConfigs []TenantConfig

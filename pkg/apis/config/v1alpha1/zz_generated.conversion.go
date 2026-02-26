@@ -50,7 +50,7 @@ func RegisterConversions(s *runtime.Scheme) error {
 
 func autoConvert_v1alpha1_ControllerConfiguration_To_config_ControllerConfiguration(in *ControllerConfiguration, out *config.ControllerConfiguration, s conversion.Scope) error {
 	out.HealthCheckConfig = (*configv1alpha1.HealthCheckConfig)(unsafe.Pointer(in.HealthCheckConfig))
-	out.ActivationId = in.ActivationId
+	out.CustomerId = in.CustomerId
 	out.Server = in.Server
 	out.Proxy = in.Proxy
 	out.TenantConfigs = *(*config.TenantConfigs)(unsafe.Pointer(&in.TenantConfigs))
@@ -64,7 +64,7 @@ func Convert_v1alpha1_ControllerConfiguration_To_config_ControllerConfiguration(
 
 func autoConvert_config_ControllerConfiguration_To_v1alpha1_ControllerConfiguration(in *config.ControllerConfiguration, out *ControllerConfiguration, s conversion.Scope) error {
 	out.HealthCheckConfig = (*configv1alpha1.HealthCheckConfig)(unsafe.Pointer(in.HealthCheckConfig))
-	out.ActivationId = in.ActivationId
+	out.CustomerId = in.CustomerId
 	out.Server = in.Server
 	out.Proxy = in.Proxy
 	out.TenantConfigs = *(*TenantConfigs)(unsafe.Pointer(&in.TenantConfigs))
@@ -78,7 +78,7 @@ func Convert_config_ControllerConfiguration_To_v1alpha1_ControllerConfiguration(
 
 func autoConvert_v1alpha1_TenantConfig_To_config_TenantConfig(in *TenantConfig, out *config.TenantConfig, s conversion.Scope) error {
 	out.TenantId = in.TenantId
-	out.CustomerId = in.CustomerId
+	out.ActivationId = in.ActivationId
 	return nil
 }
 
@@ -89,7 +89,7 @@ func Convert_v1alpha1_TenantConfig_To_config_TenantConfig(in *TenantConfig, out 
 
 func autoConvert_config_TenantConfig_To_v1alpha1_TenantConfig(in *config.TenantConfig, out *TenantConfig, s conversion.Scope) error {
 	out.TenantId = in.TenantId
-	out.CustomerId = in.CustomerId
+	out.ActivationId = in.ActivationId
 	return nil
 }
 

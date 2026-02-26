@@ -15,15 +15,15 @@ type ControllerConfiguration struct {
 
 	// HealthCheckConfig is the config for the health check controller
 	HealthCheckConfig *healthcheckconfig.HealthCheckConfig
-	ActivationId      string
+	CustomerId        string `json:"customerId"`
 	Server            string
 	Proxy             string
 	TenantConfigs     TenantConfigs
 }
 
 type TenantConfig struct {
-	TenantId   string `json:"tenantId"`
-	CustomerId string `json:"customerId"`
+	TenantId     string `json:"tenantId"`
+	ActivationId string
 }
 
 type TenantConfigs []TenantConfig

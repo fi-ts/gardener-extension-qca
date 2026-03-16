@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: qca-bootstrap
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels: {{- include "qca.selectorLabels" . | nindent 6 }}

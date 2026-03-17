@@ -4,8 +4,7 @@ kind: ClusterwideNetworkPolicy
 metadata:
   name: qca-proxy-access
   namespace: firewall
-  labels:
-    labels: {{- include "qca.labels" . | nindent 4 }}
+  labels: {{- include "qca.labels" . | nindent 4 }}
 spec:
   egress:
   - toFQDNs:

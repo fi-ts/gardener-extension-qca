@@ -1,6 +1,6 @@
 image:
-  repository: ""
-  pullPolicy: IfNotPresent
+  repository: "registry.fits.cloud/cloud-native/images/qualys/agent"
+  pullPolicy: Always
   tag: "latest"
 
 agent:

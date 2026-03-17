@@ -129,11 +129,9 @@ func (a *actuator) Reconcile(ctx context.Context, log logr.Logger, ex *extension
 			"serverUri":    a.config.Server,
 			"proxy":        a.config.Proxy,
 		},
-		"daemonset": map[string]any{
-			"image": map[string]any{
-				"repository": qcaImage.Repository,
-				"tag":        qcaImage.Tag,
-			},
+		"image": map[string]any{
+			"repository": qcaImage.Repository,
+			"tag":        qcaImage.Tag,
 		},
 	})
 	if err != nil {

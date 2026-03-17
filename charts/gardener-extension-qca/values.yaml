@@ -36,11 +36,11 @@ config:
     contentType: application/json
     qps: 100
     burst: 130
+  customerId: 00000000-0000-0000-0000-000000000456
+  server: myserver
+  proxy: myproxy
   tenantConfigs:
     - tenantId: "ft"
-      ActivationId: 00000000-0000-0000-0000-000000000123
-      customerId: 00000000-0000-0000-0000-000000000456
-      serverUri: myserver
-      proxy: myproxy
+      activationId: 00000000-0000-0000-0000-000000000123
 gardener:
   version: ""

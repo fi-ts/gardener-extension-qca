@@ -13,11 +13,11 @@ import (
 
 const (
 	// Type is the type of Extension resource.
-	Type = "qualys"
+	Type = "qca"
 	// ControllerName is the name of the registry cache service controller.
-	ControllerName = "qualys"
+	ControllerName = "qca"
 	// FinalizerSuffix is the finalizer suffix for the registry cache service controller.
-	FinalizerSuffix = "qualys"
+	FinalizerSuffix = "qca"
 )
 
 var (

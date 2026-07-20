@@ -1,4 +1,3 @@
-# After changing this file, please run `make patch-upstream-helm` and regenerate the CRD
 apiVersion: metal-stack.io/v1
 kind: ClusterwideNetworkPolicy
 metadata:

@@ -59,6 +59,9 @@ func (a *actuator) Reconcile(ctx context.Context, log logr.Logger, ex *extension
 	if err != nil {
 		return fmt.Errorf("failed to get cluster: %w", err)
 	}
+	if cluster.Shoot == nil {
+		return fmt.Errorf("cluster %s does not have a shoot reference", cluster.ObjectMeta.Name)
+	}
 
 	qcaImage, err := imagevector.ImageVector().FindImage("qualys-cloud-agent")
 	if err != nil {
@@ -81,7 +84,7 @@ func (a *actuator) Reconcile(ctx context.Context, log logr.Logger, ex *extension
 	log.Info("tenant configs", "configs", a.config.TenantConfigs, "tenant", qualysConfig.TenantId)
 	tenantConfig := a.config.TenantConfigs.GetTenantConfig(qualysConfig.TenantId)
 	if tenantConfig == nil {
-		return fmt.Errorf("tenant config not found for tenant %s", qualysConfig.TenantId)
+		return fmt.Errorf("tenant config not found for tenant %q", qualysConfig.TenantId)
 	}
 
 	// check if the Metal Stack firewall CRD is installed, so no CWNPs are generated

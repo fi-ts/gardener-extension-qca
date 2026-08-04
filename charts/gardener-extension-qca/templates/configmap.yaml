@@ -18,5 +18,5 @@ data:
       burst: {{ required ".Values.config.clientConnection.burst is required" .Values.config.clientConnection.burst }}
 {{- end }}
 {{- if .Values.config }}
-    {{- toYaml .Values.config | nindent 4 }}
+    {{- omit .Values.config "clientConnection" | toYaml | nindent 4 }}
 {{- end }}

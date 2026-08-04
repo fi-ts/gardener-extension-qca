@@ -31,7 +31,6 @@ func NewControllerManagerCommand(ctx context.Context) *cobra.Command {
 		},
 	}
 
-	fmt.Printf("cmd: %+v", options.optionAggregator)
 	options.optionAggregator.AddFlags(cmd.Flags())
 
 	return cmd

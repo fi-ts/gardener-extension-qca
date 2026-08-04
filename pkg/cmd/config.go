@@ -27,7 +27,7 @@ func init() {
 	decoder = serializer.NewCodecFactory(scheme).UniversalDecoder()
 }
 
-// RegistryOptions holds options related to the registry service.
+// QCAOptions holds options related to the qualys service.
 type QCAOptions struct {
 	ConfigLocation string
 	config         *QCAServiceConfig
@@ -65,17 +65,17 @@ func (o *QCAOptions) Complete() error {
 	return nil
 }
 
-// Completed returns the decoded RegistryServiceConfiguration instance. Only call this if `Complete` was successful.
+// Completed returns the decoded QCAServiceConfig instance. Only call this if `Complete` was successful.
 func (o *QCAOptions) Completed() *QCAServiceConfig {
 	return o.config
 }
 
-// RegistryServiceConfig contains configuration information about the registry service.
+// QCAServiceConfig contains configuration information about the qualys service.
 type QCAServiceConfig struct {
 	config configapi.ControllerConfiguration
 }
 
-// Apply applies the RegistryOptions to the passed ControllerOptions instance.
+// Apply applies the QCAServiceConfig to the passed ControllerOptions instance.
 func (c *QCAServiceConfig) Apply(config *configapi.ControllerConfiguration) {
 	*config = c.config
 }

@@ -1,7 +1,7 @@
 ENSURE_GARDENER_MOD         := $(shell go get github.com/gardener/gardener@$$(go list -m -f "{{.Version}}" github.com/gardener/gardener))
 GARDENER_HACK_DIR           := $(shell go list -m -f "{{.Dir}}" github.com/gardener/gardener)/hack
 IMAGE_TAG                   := $(or ${GITHUB_TAG_NAME}, latest)
-REGISTRY                    := ghcr.io/metal-stack
+REGISTRY                    := ghcr.io/fi-ts
 IMAGE_PREFIX                := $(REGISTRY)
 REPO_ROOT                   := $(shell dirname "$(realpath $(lastword $(MAKEFILE_LIST)))")
 HACK_DIR                    := $(REPO_ROOT)/hack
@@ -99,6 +99,6 @@ push-to-gardener-local:
 		-tags 'osusergo netgo static_build' \
 		-o bin/gardener-extension-xdqualysr \
 		./cmd/gardener-extension-qca
-	docker build -f Dockerfile.dev -t ghcr.io/fi-ts/gardener-extension-qca:latest .
-	kind --name gardener-local load docker-image ghcr.io/fi-ts/gardener-extension-qca:latest
+	docker build -f Dockerfile.dev -t $(IMAGE_PREFIX)/gardener-extension-qca:latest .
+	kind --name gardener-local load $(IMAGE_PREFIX)/gardener-extension-qca:latest
 

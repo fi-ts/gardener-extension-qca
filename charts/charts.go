@@ -10,7 +10,7 @@ import (
 var InternalChart embed.FS
 
 const (
-	// CortexCQCAChartsPathhartsPath is the path to the internal charts.
+	// QCAChartsPath is the path to the internal charts.
 	QCAChartsPath = "qca"
 	QCANamespace  = "kube-system"
 	QCAName       = "qualys-cloud-agent"

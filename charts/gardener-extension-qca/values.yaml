@@ -38,7 +38,7 @@ config:
     burst: 130
   customerId: 00000000-0000-0000-0000-000000000456
   server: myserver
-  proxy: myproxy
+  proxy: http://myproxy:3128
   tenantConfigs:
     - tenantId: "ft"
       activationId: 00000000-0000-0000-0000-000000000123

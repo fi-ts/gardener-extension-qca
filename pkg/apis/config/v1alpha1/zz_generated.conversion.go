@@ -79,6 +79,7 @@ func Convert_config_ControllerConfiguration_To_v1alpha1_ControllerConfiguration(
 func autoConvert_v1alpha1_TenantConfig_To_config_TenantConfig(in *TenantConfig, out *config.TenantConfig, s conversion.Scope) error {
 	out.TenantId = in.TenantId
 	out.ActivationId = in.ActivationId
+	out.Proxy = in.Proxy
 	return nil
 }
 
@@ -90,6 +91,7 @@ func Convert_v1alpha1_TenantConfig_To_config_TenantConfig(in *TenantConfig, out 
 func autoConvert_config_TenantConfig_To_v1alpha1_TenantConfig(in *config.TenantConfig, out *TenantConfig, s conversion.Scope) error {
 	out.TenantId = in.TenantId
 	out.ActivationId = in.ActivationId
+	out.Proxy = in.Proxy
 	return nil
 }
 

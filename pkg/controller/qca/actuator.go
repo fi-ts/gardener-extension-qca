@@ -87,6 +87,21 @@ func (a *actuator) Reconcile(ctx context.Context, log logr.Logger, ex *extension
 		return fmt.Errorf("tenant config not found for tenant %q", qualysConfig.TenantId)
 	}
 
+	// the proxy to be used is resolved in the following order:
+	// 1. proxy given directly at activation
+	// 2. proxy configured for the tenant in the tenant config
+	// 3. globally configured proxy
+	proxy := qualysConfig.Proxy
+	if proxy == "" {
+		proxy = tenantConfig.Proxy
+	}
+	if proxy == "" {
+		proxy = a.config.Proxy
+	}
+	if proxy == "" {
+		return fmt.Errorf("no proxy configured for tenant %q, neither at activation, in the tenant config nor globally", qualysConfig.TenantId)
+	}
+
 	// check if the Metal Stack firewall CRD is installed, so no CWNPs are generated
 	crd := &apiextensionsv1.CustomResourceDefinition{
 		ObjectMeta: metav1.ObjectMeta{
@@ -99,7 +114,7 @@ func (a *actuator) Reconcile(ctx context.Context, log logr.Logger, ex *extension
 		return fmt.Errorf("failed to create shoot client: %w", err)
 	}
 
-	u, err := url.Parse(a.config.Proxy)
+	u, err := url.Parse(proxy)
 	if err != nil {
 		return fmt.Errorf("wrong proxy configuration: %w", err)
 	}
@@ -130,7 +145,7 @@ func (a *actuator) Reconcile(ctx context.Context, log logr.Logger, ex *extension
 			"customerId":   a.config.CustomerId,
 			"activationId": tenantConfig.ActivationId,
 			"serverUri":    a.config.Server,
-			"proxy":        a.config.Proxy,
+			"proxy":        proxy,
 		},
 		"image": map[string]any{
 			"repository": qcaImage.Repository,
@@ -153,7 +168,7 @@ func (a *actuator) Reconcile(ctx context.Context, log logr.Logger, ex *extension
 	if err != nil {
 		return fmt.Errorf("failed to apply chart: %w", err)
 	}
-	log.Info("reconciled extension", "configuration", qualysConfig)
+	log.Info("reconciled extension", "configuration", qualysConfig, "tenantConfig", tenantConfig, "proxy", proxy)
 	return nil
 
 }

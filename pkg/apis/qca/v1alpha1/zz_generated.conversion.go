@@ -37,6 +37,7 @@ func RegisterConversions(s *runtime.Scheme) error {
 
 func autoConvert_v1alpha1_QCAConfig_To_qca_QCAConfig(in *QCAConfig, out *qca.QCAConfig, s conversion.Scope) error {
 	out.TenantId = in.TenantId
+	out.Proxy = in.Proxy
 	return nil
 }
 
@@ -47,6 +48,7 @@ func Convert_v1alpha1_QCAConfig_To_qca_QCAConfig(in *QCAConfig, out *qca.QCAConf
 
 func autoConvert_qca_QCAConfig_To_v1alpha1_QCAConfig(in *qca.QCAConfig, out *QCAConfig, s conversion.Scope) error {
 	out.TenantId = in.TenantId
+	out.Proxy = in.Proxy
 	return nil
 }
 

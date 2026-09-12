@@ -10,4 +10,9 @@ import (
 type QCAConfig struct {
 	metav1.TypeMeta `json:",inline"`
 	TenantId        string `json:"tenantId"`
+	// Proxy is an optional proxy that is used for this activation.
+	// If not set, the proxy of the tenant config is used. If this is also
+	// not set, the globally configured proxy is used.
+	// +optional
+	Proxy string `json:"proxy,omitempty"`
 }

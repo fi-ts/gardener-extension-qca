@@ -24,6 +24,10 @@ type ControllerConfiguration struct {
 type TenantConfig struct {
 	TenantId     string `json:"tenantId"`
 	ActivationId string `json:"activationId"`
+	// Proxy is an optional proxy that is used for the tenant.
+	// If not set, the globally configured proxy is used.
+	// +optional
+	Proxy string `json:"proxy,omitempty"`
 }
 
 type TenantConfigs []TenantConfig
